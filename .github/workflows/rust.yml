@@ -5,6 +5,7 @@ name: CI
 env:
   # This is required to enable the web_sys clipboard API which egui_web uses
   # https://rustwasm.github.io/wasm-bindgen/api/web_sys/struct.Clipboard.html
+  RUSTFLAGS: --cfg=web_sys_unstable_apis
 
 jobs:
   check:
@@ -84,6 +85,6 @@ jobs:
       - name: Rust Cache # cache the rust build artefacts
         uses: Swatinem/rust-cache@v1
       - name: Download and install Trunk library
-        run: wget -q0- https://github.com/thedodd/trunk/releases/latest/download/trunk-x86_64-unknown-linux-gnu.tar.gz | tar -xzf-
+        run: wget -qO- https://github.com/thedodd/trunk/releases/latest/download/trunk-x86_64-unknown-linux-gnu.tar.gz | tar -xzf-
       - name: Build
         run: ./trunk build
