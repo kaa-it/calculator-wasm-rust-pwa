@@ -44,6 +44,17 @@ impl CalcApp {
 
 impl eframe::App for CalcApp {
     fn update(&mut self, ctx: &egui::Context, _frame: &mut eframe::Frame) {
+        egui::TopBottomPanel::top("screen_panel").show(ctx, |ui| {
+            let expression = self.math_exp.join("");
+            ui.add_sized(
+                [330.0, 70.0],
+                egui::Label::new(
+                    egui::RichText::new(expression)
+                        .font(egui::FontId::monospace(25.0))
+                ).wrap(true),
+            );
+        });
+
         egui::CentralPanel::default().show(ctx, |ui| {
             keyboard::CalcKeyboard::from_buffer(&mut self.math_exp).show(ui)
         });
